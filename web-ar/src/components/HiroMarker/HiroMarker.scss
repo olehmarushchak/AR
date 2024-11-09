@@ -1,0 +1,52 @@
+@import "../../styles/utils.scss";
+
+.HiroMarker {
+  position: relative;
+  cursor: pointer;
+  transform: translateX(95%);
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: rgba($color: $color-gray, $alpha: 0.4);
+
+  transition: all 0.3s;
+
+  &--open {
+    transform: translateX(0%);
+  }
+
+  & :hover {
+    color: $color-blue;
+  }
+
+  &__title {
+    padding-left: 8px;
+    position: relative;
+    top: 50%;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 0.2em;
+    transform: translateY(-50%);
+    color: #fff;
+  }
+
+  &__marker {
+    position: absolute;
+    display: none;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1000;
+
+    &--open {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

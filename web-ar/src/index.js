@@ -6,6 +6,7 @@ import "./index.scss";
 import { App } from "./App/App";
 import MainFlex from "./components/MainFlex/MainFlex";
 import Hiro from "./components/AR/Hiro";
+import { HiroMarker } from "./components/HiroMarker/HiroMarker";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -13,9 +14,16 @@ root.render(
   <React.StrictMode>
     <Routers>
       <MainFlex>
+        <HiroMarker />
+        
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/AR" element={<Hiro color={"black"} metal={"gold"} material={"Fabric"}/>} />
+          <Route
+            path="/AR"
+            element={
+              <Hiro color={"black"} metal={"gold"} material={"Fabric"} />
+            }
+          />
         </Routes>
       </MainFlex>
     </Routers>

@@ -1,0 +1,25 @@
+@import "../../styles/utils.scss";
+
+.bottom-interface {
+  display: inline-block;
+  width: fit-content;
+  text-align: left;
+
+  &__head {
+    font-weight: 600;
+    display: flex;
+    text-transform: uppercase;
+    padding-bottom: $padding-bottom-interface;
+    border-bottom: 1px solid $color-gray;
+    width: 100%;
+    margin-bottom: $margin-bottom-interface;
+  }
+
+  &__bottom {
+    display: flex;
+
+    & > :not(:last-child) {
+      margin-right: 18px;
+    }
+  }
+}

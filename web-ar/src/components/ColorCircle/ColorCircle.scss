@@ -1,0 +1,12 @@
+.ColorCircle {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &__wrapper {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+  }
+}

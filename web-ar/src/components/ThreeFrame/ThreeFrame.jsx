@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useEffect, useState } from "react";
+import React, { Suspense, useRef, useEffect } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -89,7 +89,10 @@ export const Model = ({ color, metal, material }) => {
   }
 
   const texture = useLoader(TextureLoader, textureChanger(material, "base"));
-  const normalMap = useLoader(TextureLoader, textureChanger(material, "normal"));
+  const normalMap = useLoader(
+    TextureLoader,
+    textureChanger(material, "normal")
+  );
   const aoMap = useLoader(TextureLoader, textureChanger(material, "occ"));
 
   const { scene } = useGLTF(modelUrl);
@@ -108,8 +111,6 @@ export const Model = ({ color, metal, material }) => {
       // Styles of Model
       scene.traverse((child) => {
         if (child.isMesh) {
-          const scaleFactor = 1;
-
           // Main
           child.material = new THREE.MeshStandardMaterial({
             ...materials[material],
@@ -135,12 +136,22 @@ export const Model = ({ color, metal, material }) => {
             aoMap: aoMap,
           });
 
-          child.material.map.repeat.set(scaleFactor, 0.3);
-          child.material.normalMap.repeat.set(scaleFactor, 0.2);
-          child.material.aoMap.repeat.set(scaleFactor, 0.3);
-          child.material.normalScale = new THREE.Vector2(1, 0.3);
+          const repeatValue = 1;
+          const repeatValueX = 1;
 
-          child.material.needsUpdate = true;
+          child.material.map.repeat.set(repeatValue, repeatValueX); // Збільшення повторення текстури по осі X
+
+          // Поворот текстури на 90 градусів
+
+          child.material.normalMap.repeat.set(0.5, 1); // Збільшення повторення текстури по осі X
+
+          // Поворот текстури на 90 градусів
+
+          child.material.aoMap.repeat.set(repeatValue, repeatValueX); // Збільшення повторення текстури по осі X
+
+          child.material.map.needsUpdate = true;
+          child.material.normalMap.needsUpdate = true;
+          child.material.aoMap.needsUpdate = true;
         }
       });
     }
@@ -159,49 +170,51 @@ export const ThreeFrame = () => {
   return (
     <div className="ThreeFrame">
       <Canvas key="three-canvas" style={{ width: "100%", height: "100%" }}>
-        <ambientLight intensity={0.4} color={new THREE.Color(0xFFFFFF)} />
+        <ambientLight intensity={0.4} color={new THREE.Color(0xffffff)} />
 
         <directionalLight
-          position={[10, 10, 5]}
+          position={[1, 7, 1.5]}
           intensity={10}
           castShadow
-          shadow-mapSize-width={1024} 
+          shadow-mapSize-width={1024}
           shadow-mapSize-height={1024}
           shadow-camera-near={0.5}
-          shadow-camera-far={20}
+          shadow-camera-far={100}
           shadow-camera-left={-10}
           shadow-camera-right={10}
-          shadow-camera-top={10}
+          shadow-camera-top={1000}
           shadow-camera-bottom={-10}
         />
 
+        {/* right  */}
         <spotLight
-          position={[10, 5, 5]}
+          position={[8, 6, 0]}
           angle={0.4}
           penumbra={0.7}
-          intensity={8}
+          intensity={1500}
           castShadow
         />
 
+        {/* left  */}
         <spotLight
           position={[-10, 5, -5]}
           angle={0.4}
           penumbra={0.7}
-          intensity={8}
+          intensity={1500}
           castShadow
         />
 
         <hemisphereLight
-          skyColor={new THREE.Color(0x87ceeb)} 
+          skyColor={new THREE.Color(0x87ceeb)}
           groundColor={new THREE.Color(0x2f4f4f)}
-          intensity={0.6}
+          intensity={5}
         />
 
         <OrbitControls
           enablePan={false}
           enableZoom={true}
           minDistance={3}
-          maxDistance={8}
+          maxDistance={6}
         />
 
         <Suspense fallback={null}>

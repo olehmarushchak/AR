@@ -43,6 +43,9 @@
     right: 0;
     z-index: -1000;
 
+    &__img {
+      width: 100%;
+    }
     &--open {
       display: flex;
       justify-content: center;

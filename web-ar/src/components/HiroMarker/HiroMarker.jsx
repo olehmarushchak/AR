@@ -7,6 +7,7 @@ export const HiroMarker = () => {
 
   const handleOpenMarker = () => {
     setIsOpen(!isOpen);
+    document.body.style.overflowY = !isOpen ? "hidden" : "auto";
   };
 
   return ReactDOM.createPortal(
@@ -23,7 +24,7 @@ export const HiroMarker = () => {
       >
         <img
           className="HiroMarker__marker__img"
-          src="icon/hiro_marker_arjs.png"
+          src="icon/hiro.png"
           alt="hiro"
         />
       </div>
